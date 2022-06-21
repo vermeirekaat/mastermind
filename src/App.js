@@ -3,6 +3,7 @@ import styles from './App.module.scss';
 import './styles/style.scss';
 
 import { Header } from './components/Header/Header';
+import { Footer } from './components/Footer/Footer';
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
   return (
     <div>
       <Header handleClick={(type) => handleNewGame(type)}></Header>
+
+      <Footer></Footer>
 
     </div>
   );

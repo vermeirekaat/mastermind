@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+@import '../../styles/functions';
+
+.footer {
+    width: 100vw;
+    background-color: $black;
+    color: $white;
+    height: rem(87px);
+
+    display: flex;
+    align-items: center;
+
+    position: fixed;
+    bottom: 0;
+
+    &__content {
+        width: rem(960px);
+        margin: 0 auto;
+    }
+}
