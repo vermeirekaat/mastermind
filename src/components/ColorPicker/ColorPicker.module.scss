@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+@import '../../styles/functions';
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: rem(350px);
+    margin-top: rem(25px);
+    padding: rem(30px);
+    z-index: 1;
+    position: absolute;
+
+    box-shadow: rem(0px) rem(3px) rem(20px) $grey;
+    background-color: $white;
+}
