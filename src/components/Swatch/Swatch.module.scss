@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+@import '../../styles/functions';
+
+.swatch {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__outer {
+        width: rem(35px);
+        height: rem(35px);
+        border-radius: 100%;
+        border-width: rem(4px);
+        border-style: solid;
+        background-color: $white;
+    }
+
+    &__inner {
+        position: absolute;
+
+        width: rem(30px);
+        height: rem(30px);
+        border-radius: 100%;
+    }
+}

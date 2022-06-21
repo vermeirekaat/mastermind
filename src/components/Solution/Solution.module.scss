@@ -1,0 +1,23 @@
+@import '../../styles/variables';
+@import '../../styles/functions';
+
+.overview {
+    max-width: rem(960px);
+    margin: 0 auto;
+    padding: rem(30px);
+
+    box-shadow: rem(0px) rem(3px) rem(20px) $shadow; 
+
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &__colors {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        width: rem(250px);
+    }
+}
