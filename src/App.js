@@ -6,6 +6,7 @@ import styles from './App.module.scss';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Solution } from './components/Solution/Solution';
+import { Guess } from './components/Guess/Guess';
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
 
   const [counter, setCounter] = useState('05:00');
   const [solution, setSolution] = useState([]);
+  const [guess, setGuess] = useState(['#7A7A80','#7A7A80', '#7A7A80', '#7A7A80']);
+  const [startGame, setStartGame] = useState(false);
   const [endGame, setEndGame] = useState(false);
 
   const shuffleIndexes = () => {
@@ -28,6 +31,7 @@ function App() {
 
 
   const handleNewGame = () => {
+    setStartGame(true);
     // reset the counter by counting down from 5 min
     const duration = 60 * 5;
 
@@ -57,13 +61,24 @@ function App() {
       generatedCode.push(allColors[index]);
     })
     setSolution(generatedCode);
+  };
+
+  const handleChangeGuess = (index, color) => {
+    const copy = [...guess];
+    copy[index] = color;
+
+    setGuess(copy);
   }
+
+
 
   return (
     <div>
-      <Header handleClick={(type) => handleNewGame(type)}></Header>
+      <Header handleClick={() => handleNewGame()}></Header>
 
-      <Solution colors={solution} countdown={counter} finish={endGame}></Solution>
+      {startGame && <Solution colors={solution} countdown={counter} finish={endGame}></Solution>}
+
+      {startGame && <Guess allColors={allColors} colors={guess} handleClickChange={(index, color) => handleChangeGuess(index, color)} activeGuess={true}></Guess>}
 
       <Footer></Footer>
 
