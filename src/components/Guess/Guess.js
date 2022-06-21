@@ -5,7 +5,7 @@ import { Swatch } from '../Swatch/Swatch';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { Button } from '../Button/Button';
 
-export const Guess = ({ allColors, colors, handleClickChange, handleClickButton, activeGuess }) => {
+export const Guess = ({ allColors, colors, results, index, handleClickChange, handleClickButton, activeGuess }) => {
 
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [colorIndex, setColorIndex] = useState();
@@ -44,10 +44,9 @@ export const Guess = ({ allColors, colors, handleClickChange, handleClickButton,
             {activeGuess ?
                 <Button text="guess" onButtonClick={() => handleClickButton()}></Button> : 
                 <div className={styles.overview__result}>
-                    <Swatch color='000000'></Swatch>
-                    <Swatch color='000000'></Swatch>
-                    <Swatch color='000000'></Swatch>
-                    <Swatch color='000000'></Swatch>
+                    {results[index].map((result) => (
+                         <Swatch color={result}></Swatch>
+                    ))}
                 </div>
             }
         </div>

@@ -17,10 +17,9 @@ function App() {
   const [solution, setSolution] = useState([]);
   const [guess, setGuess] = useState(['#7A7A80','#7A7A80', '#7A7A80', '#7A7A80']);
   const [savedGuesses, setSavedGuesses] = useState([]);
+  const [savedResults, setSavedResults] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [endGame, setEndGame] = useState(false);
-
-  console.log(savedGuesses)
 
   const shuffleIndexes = () => {
     const numbers = [];
@@ -37,7 +36,7 @@ function App() {
   const handleNewGame = () => {
     setStartGame(true);
     // reset the counter by counting down from 5 min
-    const duration = 60 * 5;
+    const duration = 60 * .05;
 
     let timer = duration, minutes, seconds;
     const countdown = setInterval(() => {
@@ -80,7 +79,37 @@ function App() {
     copy.unshift(guess);
     setSavedGuesses(copy);
 
+    checkCurrentResult();
+
     setGuess(['#7A7A80','#7A7A80', '#7A7A80', '#7A7A80']);
+  }
+
+  const checkCurrentResult = () => {
+    const codeResult = [];
+    for (let i = 0; i <= 3; i++) {
+      if (guess[i] === solution[i]) {
+        codeResult.push('#5E60CE')
+
+        if (codeResult.length === 4) {
+          setEndGame(true);
+        }
+      }
+      else if (solution.includes(guess[i])) {
+        codeResult.push('#333333');
+      }
+    }
+
+    const rest = 4 - codeResult.length;
+    if (rest > 0) {
+      for (let i = 0; i < rest; i++) {
+        codeResult.push('#7A7A80')
+      }
+    }
+
+    const copy = [...savedResults];
+    copy.unshift(codeResult.sort());
+
+    setSavedResults(copy);
   }
 
   return (
@@ -89,10 +118,10 @@ function App() {
 
       {startGame && <Solution colors={solution} countdown={counter} finish={endGame}></Solution>}
 
-      {startGame && <Guess allColors={allColors} colors={guess} handleClickChange={(index, color) => handleChangeGuess(index, color)} handleClickButton={() => handleSaveGuess()} activeGuess={true}></Guess>}
+      {(startGame || endGame) && <Guess allColors={allColors} colors={guess} handleClickChange={(index, color) => handleChangeGuess(index, color)} handleClickButton={() => handleSaveGuess()} activeGuess={true}></Guess>}
 
       {savedGuesses.map((guess) => (
-          <Guess colors={guess} activeGuess={false}></Guess>
+          <Guess colors={guess} results={savedResults} activeGuess={false} index={savedGuesses.indexOf(guess)}></Guess>
         ))}
 
       <Footer></Footer>
