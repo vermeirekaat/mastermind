@@ -24,3 +24,7 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+.border {
+    border-top: rem(1px) solid $black;
+}

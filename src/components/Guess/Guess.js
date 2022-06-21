@@ -21,7 +21,7 @@ export const Guess = ({ allColors, colors, results, index, handleClickChange, ha
     }
 
     return (
-        <div className={styles.overview}>
+        <div className={`${styles.overview} ${!activeGuess && styles.border}`}>
             <div className={styles.overview__container}>
                 {activeGuess ? <div className={styles.overview__colors}>
                     {

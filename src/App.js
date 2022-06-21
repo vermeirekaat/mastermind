@@ -27,7 +27,8 @@ function App() {
       numbers.push(allColors.indexOf(item));
     });
 
-    for(var j, x, i = numbers.length; i; j = parseInt(Math.random() * i), x = numbers[--i], numbers[i] = numbers[j], numbers[j] = x);
+    // shuffle the items of array without duplicates
+    for(let j, x, i = numbers.length; i; j = parseInt(Math.random() * i), x = numbers[--i], numbers[i] = numbers[j], numbers[j] = x);
 
     return numbers.slice(0, -3);
   }
@@ -35,6 +36,7 @@ function App() {
 
   const handleNewGame = () => {
     setStartGame(true);
+    setEndGame(false);
     // reset the counter by counting down from 5 min
     const duration = 60 * .05;
 
