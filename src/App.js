@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import './styles/style.scss';
+
 import styles from './App.module.scss';
 
 import { Header } from './components/Header/Header';
@@ -15,8 +16,11 @@ function App() {
   const [counter, setCounter] = useState('05:00');
   const [solution, setSolution] = useState([]);
   const [guess, setGuess] = useState(['#7A7A80','#7A7A80', '#7A7A80', '#7A7A80']);
+  const [savedGuesses, setSavedGuesses] = useState([]);
   const [startGame, setStartGame] = useState(false);
   const [endGame, setEndGame] = useState(false);
+
+  console.log(savedGuesses)
 
   const shuffleIndexes = () => {
     const numbers = [];
@@ -70,7 +74,14 @@ function App() {
     setGuess(copy);
   }
 
+  const handleSaveGuess = () => {
+    const copy = [...savedGuesses];
 
+    copy.unshift(guess);
+    setSavedGuesses(copy);
+
+    setGuess(['#7A7A80','#7A7A80', '#7A7A80', '#7A7A80']);
+  }
 
   return (
     <div>
@@ -78,7 +89,11 @@ function App() {
 
       {startGame && <Solution colors={solution} countdown={counter} finish={endGame}></Solution>}
 
-      {startGame && <Guess allColors={allColors} colors={guess} handleClickChange={(index, color) => handleChangeGuess(index, color)} activeGuess={true}></Guess>}
+      {startGame && <Guess allColors={allColors} colors={guess} handleClickChange={(index, color) => handleChangeGuess(index, color)} handleClickButton={() => handleSaveGuess()} activeGuess={true}></Guess>}
+
+      {savedGuesses.map((guess) => (
+          <Guess colors={guess} activeGuess={false}></Guess>
+        ))}
 
       <Footer></Footer>
 

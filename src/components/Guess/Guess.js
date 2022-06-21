@@ -3,8 +3,9 @@ import styles from './Guess.module.scss';
 
 import { Swatch } from '../Swatch/Swatch';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
+import { Button } from '../Button/Button';
 
-export const Guess = ({ allColors, colors, handleClickChange, activeGuess }) => {
+export const Guess = ({ allColors, colors, handleClickChange, handleClickButton, activeGuess }) => {
 
     const [showColorPicker, setShowColorPicker] = useState(false);
     const [colorIndex, setColorIndex] = useState();
@@ -40,6 +41,15 @@ export const Guess = ({ allColors, colors, handleClickChange, activeGuess }) => 
                 </div>}
             {showColorPicker && <ColorPicker colors={allColors} handleChangeSwatch={(color) => onSwatchChange(color)}></ColorPicker>}
             </div>
+            {activeGuess ?
+                <Button text="guess" onButtonClick={() => handleClickButton()}></Button> : 
+                <div className={styles.overview__result}>
+                    <Swatch color='000000'></Swatch>
+                    <Swatch color='000000'></Swatch>
+                    <Swatch color='000000'></Swatch>
+                    <Swatch color='000000'></Swatch>
+                </div>
+            }
         </div>
     )
 }
