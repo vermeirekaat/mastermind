@@ -22,7 +22,7 @@ function App() {
   const [savedGuesses, setSavedGuesses] = useState([]);
   const [savedResults, setSavedResults] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  const [endGame, setEndGame] = useState(true);
+  const [endGame, setEndGame] = useState(false);
 
   const shuffleIndexes = () => {
     const numbers = [];
@@ -40,8 +40,11 @@ function App() {
     setStartGame(true);
     setEndGame(false);
 
+    setSavedGuesses([]);
+    setSavedResults([]);
+
     // reset the counter by counting down from 5 min
-    const duration = 60 * .05;
+    const duration = 60 * 5;
 
     let timer = duration, minutes, seconds;
     countdown = setInterval(() => {
@@ -60,10 +63,6 @@ function App() {
         }
        
       }, 1000);
-
-      if (startGame) {
-        clearInterval(countdown);
-      }
     
     // generate random code 
     const randomIndexes = shuffleIndexes();
