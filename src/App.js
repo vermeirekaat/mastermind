@@ -12,6 +12,7 @@ import { Guess } from './components/Guess/Guess';
 function App() {
 
   const allColors = ['#2900FF', '#EE00B8', '#FF0072', '#FF6A3F', '#FFBB34', '#F9F871', '#00CA99'];
+  let countdown;
 
   const [counter, setCounter] = useState('05:00');
   const [solution, setSolution] = useState([]);
@@ -33,15 +34,15 @@ function App() {
     return numbers.slice(0, -3);
   }
 
-
   const handleNewGame = () => {
     setStartGame(true);
     setEndGame(false);
+
     // reset the counter by counting down from 5 min
-    const duration = 60 * .05;
+    const duration = 60 * 5;
 
     let timer = duration, minutes, seconds;
-    const countdown = setInterval(() => {
+    countdown = setInterval(() => {
 
         minutes = parseInt(timer/ 60, 10);
         seconds = parseInt(timer % 60, 10);
@@ -57,6 +58,10 @@ function App() {
         }
        
       }, 1000);
+
+      if (startGame) {
+        clearInterval(countdown);
+      }
     
     // generate random code 
     const randomIndexes = shuffleIndexes();
@@ -69,10 +74,21 @@ function App() {
   };
 
   const handleChangeGuess = (index, color) => {
-    const copy = [...guess];
-    copy[index] = color;
+    // check for duplicates
+    if (guess.includes(color)) {
+      const oldIndex = guess.indexOf(color);
 
-    setGuess(copy);
+      const copy = [...guess];
+      copy[oldIndex] = '#7A7A80';
+      copy[index] = color;
+
+      setGuess(copy);
+    } else {
+      const copy = [...guess];
+      copy[index] = color;
+  
+      setGuess(copy);
+    }
   }
 
   const handleSaveGuess = () => {
