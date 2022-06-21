@@ -8,6 +8,8 @@ import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import { Solution } from './components/Solution/Solution';
 import { Guess } from './components/Guess/Guess';
+import { Swatch } from './components/Swatch/Swatch';
+import { Modal } from './components/Modal/Modal';
 
 function App() {
 
@@ -20,7 +22,7 @@ function App() {
   const [savedGuesses, setSavedGuesses] = useState([]);
   const [savedResults, setSavedResults] = useState([]);
   const [startGame, setStartGame] = useState(false);
-  const [endGame, setEndGame] = useState(false);
+  const [endGame, setEndGame] = useState(true);
 
   const shuffleIndexes = () => {
     const numbers = [];
@@ -39,7 +41,7 @@ function App() {
     setEndGame(false);
 
     // reset the counter by counting down from 5 min
-    const duration = 60 * 5;
+    const duration = 60 * .05;
 
     let timer = duration, minutes, seconds;
     countdown = setInterval(() => {
@@ -133,6 +135,18 @@ function App() {
   return (
     <div>
       <Header handleClick={() => handleNewGame()}></Header>
+
+      {endGame && 
+        <Modal>
+          <p className="typo-lg-bold">Game Over</p>
+          {counter === '00:00' ? <p className="typo-md-bold">Helaas, de tijd is om...</p> : <p className='typo-md-bold'>Proficiat, je hebt de code juist geraden!</p>}
+          <div className={styles.solution}>
+            {solution.map((color) => (
+              <Swatch color={color} key={`swatch ${color}`}></Swatch>
+            ))}
+          </div>
+        </Modal>
+      }
 
       {startGame && <Solution colors={solution} countdown={counter} finish={endGame}></Solution>}
 
