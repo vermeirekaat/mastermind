@@ -13,6 +13,7 @@ function App() {
 
   const [counter, setCounter] = useState('05:00');
   const [solution, setSolution] = useState([]);
+  const [endGame, setEndGame] = useState(false);
 
   const shuffleIndexes = () => {
     const numbers = [];
@@ -43,6 +44,7 @@ function App() {
 
         if (--timer < 0) {
           clearInterval(countdown);
+          setEndGame(true);
         }
        
       }, 1000);
@@ -61,7 +63,7 @@ function App() {
     <div>
       <Header handleClick={(type) => handleNewGame(type)}></Header>
 
-      <Solution colors={solution} countdown={counter}></Solution>
+      <Solution colors={solution} countdown={counter} finish={endGame}></Solution>
 
       <Footer></Footer>
 
